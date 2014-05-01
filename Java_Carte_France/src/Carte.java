@@ -1,21 +1,32 @@
+import java.awt.Graphics;
+import java.util.List;
 
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 
+public class Carte extends JPanel {
 
+	List<Ville> villes;
 
-public class Carte extends JFrame {
-	
 	public Carte() {
-		setBounds(10, 10, 800, 800);
-		
-		Monde monde = new Monde ();
+		setBounds(0, 0, 800, 800);
+
+		Monde monde = new Monde();
 		monde.charger();
-		Panneau panneau = new Panneau (monde.getVilles());
-		getContentPane().add(panneau);
+		this.villes = monde.getVilles();
+
 		setVisible(true);
-		
-		
-		
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+
+		super.paintComponent(g);
+		for (Ville ville : villes) {
+			int x = ville.getX();
+			int y = ville.getY();
+			g.fillRect(x, y, 5, 5);
+			g.drawString(ville.getNom(), x, y);
+		}
 	}
 
 }

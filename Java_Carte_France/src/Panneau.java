@@ -19,7 +19,7 @@ public void setVilles(List<Ville> villes) {
 }
 @Override
 	protected void paintComponent(Graphics g) {
-		// TODO Auto-generated method stub
+	
 		super.paintComponent(g);
 		for (Ville ville : villes ) {
 			int x = ville.getX();
