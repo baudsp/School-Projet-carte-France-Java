@@ -2,6 +2,10 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -9,28 +13,37 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class Atlas extends JFrame {
+public class Atlas extends JFrame implements ActionListener{
+	
+	private Carte carte;
+	private JButton button;
+	private JTextField textField;
+	private JLabel label;
 
 	public Atlas() {
 
+		
+		// Creation de la carte de France
+		 carte = new Carte();
+				
+				
 		// Creation de l'interface
 		Panel c = new Panel();
 		BoxLayout interfaceLayout = new BoxLayout(c, BoxLayout.Y_AXIS);
 		c.setLayout(interfaceLayout);
 
-		JButton button = new JButton("OK");
+		button = new JButton("OK");
 		button.setAlignmentX(Component.CENTER_ALIGNMENT);
-		JLabel label = new JLabel("Rechercher une ville sur la carte");
+		label = new JLabel("Rechercher une ville sur la carte");
 		label.setAlignmentX(Component.CENTER_ALIGNMENT);
-		JTextField textField = new JTextField();
+		textField = new JTextField();
 		textField.setMaximumSize(new Dimension(100, 50));
-
+		
 		c.add(label);
 		c.add(textField);
 		c.add(button);
 
-		// Creation de la carte de France
-		Carte carte = new Carte();
+		button.addActionListener(this);
 
 		// Creation de la fenetre et positionnement des elements
 		BorderLayout windowsLayout = new BorderLayout();
@@ -42,5 +55,11 @@ public class Atlas extends JFrame {
 		setSize(getMaximumSize());
 		setVisible(true);
 
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		String ville = this.textField.getText();
+		
+		this.carte.setVilleSelectionnee(ville);
 	}
 }

@@ -9,11 +9,12 @@ public class Carte extends JPanel {
 
 	private List<Ville> villes;
 	private int villeSelectionnee = -1;
+	private Monde monde;
 
 	public Carte() {
 		setBounds(0, 0, 800, 800);
 
-		Monde monde = new Monde();
+		monde = new Monde();
 		monde.charger();
 		this.villes = monde.getVilles();
 
@@ -59,7 +60,13 @@ public class Carte extends JPanel {
 		paintComponent(g);
 	}
 
-	public void setVilleSelectionnee(Ville v) {
-		villeSelectionnee = v.getCode();
+	public void setVilleSelectionnee(String ville) {
+		Ville villeSelect = monde.getVilleParNom(ville);
+		
+		if (villeSelect != null) {		
+			villeSelectionnee = villeSelect.getCode();
+			repaint();
+		}
+		
 	}
 }
