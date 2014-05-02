@@ -63,10 +63,15 @@ public class Ville {
 		this.voisines[nbVoisines] = v;
 		this.distanceVoisines[nbVoisines] = distance;
 
+		
 		this.nbVoisines++;
 	}
 
 	public Ville[] getVoisines() {
 		return voisines;
+	}
+	
+	int distance(Ville v) {		
+		return (int)Math.sqrt(Math.pow((v.x - this.x),2) + Math.pow((v.y - this.y),2));
 	}
 }
