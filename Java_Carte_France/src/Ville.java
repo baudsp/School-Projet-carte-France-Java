@@ -63,15 +63,33 @@ public class Ville {
 		this.voisines[nbVoisines] = v;
 		this.distanceVoisines[nbVoisines] = distance;
 
-		
 		this.nbVoisines++;
 	}
 
 	public Ville[] getVoisines() {
 		return voisines;
 	}
-	
-	int distance(Ville v) {		
-		return (int)Math.sqrt(Math.pow((v.x - this.x),2) + Math.pow((v.y - this.y),2));
+
+	public int distance(Ville v) {
+		return (int) Math.sqrt(Math.pow((v.x - this.x), 2)
+				+ Math.pow((v.y - this.y), 2));
+	}
+
+	/**
+	 * Recherche, dans les voisines de l'instance de cette classe, la ville la
+	 * plus proche du paramètre v
+	 */
+	public Ville getPlusProcheVoisines(Ville v) {
+		int distAvecVoisine = 1100; // Distance maximale entre deux villes en France à vol d'oiseau
+		
+		Ville plusProcheVoisine = null;
+		
+		for (int i =0; i < nbVoisines; i++) {
+			if (distAvecVoisine > voisines[i].distance(v)) {
+				plusProcheVoisine = voisines[i];
+				distAvecVoisine = voisines[i].distance(v);
+			}
+		}
+		return plusProcheVoisine;
 	}
 }

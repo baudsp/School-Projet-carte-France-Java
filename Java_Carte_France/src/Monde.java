@@ -39,7 +39,12 @@ public class Monde {
 			if (villeDepart != null) {
 				villeDepart.ajouterVoisine(getVilleParCode(codeArrivee),
 						distance);
-				;
+			}
+			
+			Ville villeArrivee = getVilleParCode(codeArrivee);
+			
+			if (villeArrivee != null) {
+				villeArrivee.ajouterVoisine(getVilleParCode(codeDepart), distance);
 			}
 		}
 	}
