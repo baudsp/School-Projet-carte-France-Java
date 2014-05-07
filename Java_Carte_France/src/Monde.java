@@ -64,7 +64,7 @@ public class Monde {
 
 		while (iterator.hasNext()) {
 			Ville curVille = iterator.next();
-			if (curVille.getNom().equalsIgnoreCase(nomVille)) {
+			if (curVille.getNom().equalsIgnoreCase(nomVille.trim())) {
 				return curVille;
 			}
 		}

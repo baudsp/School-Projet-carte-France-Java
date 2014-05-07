@@ -39,4 +39,11 @@ public class Itineraire {
 		return r;
 	}
 	
+	/**
+	 *	Verifie si la route entre les deux villes fait partie de cet itinéraire
+	 */
+	public boolean checkVillesItineraire(Ville V1, Ville V2) {
+		//TODO
+	}
+	
 }

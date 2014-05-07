@@ -10,6 +10,7 @@ public class Carte extends JPanel {
 	private List<Ville> villes;
 	private int villeSelectionnee = -1;
 	private Monde monde;
+	private Itineraire itineraire = null;
 
 	public Carte() {
 		setBounds(0, 0, 800, 800);
@@ -35,7 +36,8 @@ public class Carte extends JPanel {
 			g.fillRect(3 * x / 4, 3 * y / 4, 4, 4);
 
 			g.setColor(Color.ORANGE);
-
+			
+			// On dessine les routes
 			Ville[] voisines = ville.getVoisines();
 			for (int i = 0; i < 10 && voisines[i] != null; i++) {
 				g.drawLine(3 * x / 4, 3 * y / 4, voisines[i].getX() * 3 / 4,
@@ -45,6 +47,7 @@ public class Carte extends JPanel {
 			// Si la ville est celle qui est sélectionnée, on change la couleur
 			// en rouge
 			if (ville.getCode() == villeSelectionnee) {
+				g.setFont(new Font("TimesRoman", Font.BOLD, 18));
 				g.setColor(Color.RED);
 				g.drawString(ville.getNom(), 3 * x / 4, 3 * y / 4);
 				g.setColor(Color.BLACK);
