@@ -92,4 +92,8 @@ public class Ville {
 		}
 		return plusProcheVoisine;
 	}
+	
+	public String toString() {
+		return this.nom;
+	}
 }

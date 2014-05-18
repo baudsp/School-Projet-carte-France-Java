@@ -69,7 +69,7 @@ public class Monde {
 			}
 		}
 
-		// On n'a rien trouvé, on retourne NULL
+		// On n'a rien trouvé, on retourne null
 		return null;
 	}
 
@@ -84,7 +84,7 @@ public class Monde {
 			}
 		}
 
-		// On n'a rien trouvé, on retourne NULL
+		// On n'a rien trouvé, on retourne null
 		return null;
 	}
 }

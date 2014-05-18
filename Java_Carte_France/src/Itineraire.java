@@ -13,13 +13,15 @@ public class Itineraire {
 		
 		Ville curVille = depart;
 		
-		while (curVille.getCode() != arrivee.getCode()) {
-			
-			nbrVilles++;
+		nbrVilles++;
+		
+		while (curVille.getCode() != arrivee.getCode()) {			
 			
 			curVille = curVille.getPlusProcheVoisines(arrivee);
 			
-			villesItineraire.add(curVille);			
+			villesItineraire.add(curVille);
+			
+			nbrVilles++;
 		}
 	}
 	
@@ -40,10 +42,9 @@ public class Itineraire {
 	}
 	
 	/**
-	 *	Verifie si la route entre les deux villes fait partie de cet itinéraire
+	 * Verifie si la ville fait partie de l'itineraire
 	 */
-	public boolean checkVillesItineraire(Ville V1, Ville V2) {
-		//TODO
+	public boolean checkVille(Ville v) {
+		return this.villesItineraire.contains(v);
 	}
-	
 }

@@ -30,12 +30,12 @@ public class Atlas extends JFrame implements ActionListener{
 		BoxLayout interfaceLayout = new BoxLayout(c, BoxLayout.Y_AXIS);
 		c.setLayout(interfaceLayout);
 
-		button = new JButton("OK");
-		button.setAlignmentX(Component.CENTER_ALIGNMENT);
 		label = new JLabel("Rechercher une ville sur la carte");
 		label.setAlignmentX(Component.CENTER_ALIGNMENT);
 		textField = new JTextField();
 		textField.setMaximumSize(new Dimension(100, 50));
+		button = new JButton("OK");
+		button.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		c.add(label);
 		c.add(textField);
@@ -56,6 +56,7 @@ public class Atlas extends JFrame implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		
 		String ville = this.textField.getText();
 		
 		this.carte.setVilleSelectionnee(ville);
