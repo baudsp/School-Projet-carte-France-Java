@@ -6,7 +6,6 @@ public class Ville {
 	private int y;
 	private int nbVoisines = 0;
 	private Ville[] voisines = new Ville[10];
-
 	private int[] distanceVoisines = new int[10];
 
 	public Ville(String nom, int code, int x, int y) {
@@ -49,7 +48,7 @@ public class Ville {
 		this.y = y;
 	}
 
-	void ajouterVoisine(Ville v, int distance) {
+	public void ajouterVoisine(Ville v, int distance) {
 
 		if (v == null) {
 			return;
@@ -67,7 +66,7 @@ public class Ville {
 	}
 
 	public Ville[] getVoisines() {
-		return voisines;
+		return this.voisines;
 	}
 
 	public int distance(Ville v) {
@@ -77,14 +76,15 @@ public class Ville {
 
 	/**
 	 * Recherche, dans les voisines de l'instance de cette classe, la ville la
-	 * plus proche du paramètre v
+	 * plus proche du paramètre v (en distance geopgraphique)
 	 */
 	public Ville getPlusProcheVoisines(Ville v) {
-		int distAvecVoisine = 1100; // Distance maximale entre deux villes en France à vol d'oiseau
-		
+		int distAvecVoisine = 1100; // Distance maximale entre deux villes en
+									// France à vol d'oiseau
+
 		Ville plusProcheVoisine = null;
-		
-		for (int i =0; i < nbVoisines; i++) {
+
+		for (int i = 0; i < nbVoisines; i++) {
 			if (distAvecVoisine > voisines[i].distance(v)) {
 				plusProcheVoisine = voisines[i];
 				distAvecVoisine = voisines[i].distance(v);
@@ -92,7 +92,7 @@ public class Ville {
 		}
 		return plusProcheVoisine;
 	}
-	
+
 	public String toString() {
 		return this.nom;
 	}

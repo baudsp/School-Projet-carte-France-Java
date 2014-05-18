@@ -20,7 +20,6 @@ public class Carte extends JPanel {
 		this.villes = monde.getVilles();
 
 		setVisible(true);
-		setItineraire("Bordeaux", "Versailles");
 	}
 
 	protected void paintComponent(Graphics g) {
@@ -37,18 +36,22 @@ public class Carte extends JPanel {
 			g.fillRect(3 * x / 4, 3 * y / 4, 4, 4);
 
 			g.setColor(Color.ORANGE);
-			
+
 			// On dessine les routes
 			Ville[] voisines = ville.getVoisines();
 			for (int i = 0; i < 10 && voisines[i] != null; i++) {
 				g.drawLine(3 * x / 4, 3 * y / 4, voisines[i].getX() * 3 / 4,
-						voisines[i].getY() * 3 / 4); 
-			// Avec cette méthode, toutes les routes sont dessinées deux fois, une fois la route de A à B, puis la route de B à A
+						voisines[i].getY() * 3 / 4);
+				// Avec cette méthode, toutes les routes sont dessinées deux
+				// fois, une fois la route de A à B, puis la route de B à A
 			}
 
-			// Si la ville est celle qui est sélectionnée ou est sur l'itineraire, on change la police
+			// Si la ville est celle qui est sélectionnée ou est sur
+			// l'itineraire, on change la police
 			// en rouge, gras et taille 18
-			if (ville.getCode() == this.villeSelectionnee || (this.itineraire != null && this.itineraire.checkVille(ville))) {
+			if (ville.getCode() == this.villeSelectionnee
+					|| (this.itineraire != null && this.itineraire
+							.checkVille(ville))) {
 				g.setFont(new Font("TimesRoman", Font.BOLD, 18));
 				g.setColor(Color.RED);
 				g.drawString(ville.getNom(), 3 * x / 4, 3 * y / 4);
@@ -56,21 +59,24 @@ public class Carte extends JPanel {
 			} else {
 				g.setColor(Color.BLACK);
 				g.drawString(ville.getNom(), 3 * x / 4, 3 * y / 4);
-			}			
+			}
 		}
-		
-		// On va repeindre les routes de l'itinéraire en rouge (par-dessus celle en orange)
-		if (this.itineraire != null){
+
+		// On va repeindre les routes de l'itinéraire en rouge (par-dessus celle
+		// en orange)
+		if (this.itineraire != null) {
 			g.setColor(Color.BLUE);
-			
-			List<Ville> villesItineraire = this.itineraire.getVillesItineraire();
-			
-			for (int i = 0; i<villesItineraire.size() - 1; i++) {
+
+			List<Ville> villesItineraire = this.itineraire
+					.getVillesItineraire();
+
+			for (int i = 0; i < villesItineraire.size() - 1; i++) {
 				Ville v1 = villesItineraire.get(i);
 				Ville v2 = villesItineraire.get(i + 1);
-				g.drawLine(v1.getX() * 3 / 4, v1.getY() * 3 / 4, v2.getX() * 3 / 4, v2.getY() * 3 / 4);
+				g.drawLine(v1.getX() * 3 / 4, v1.getY() * 3 / 4,
+						v2.getX() * 3 / 4, v2.getY() * 3 / 4);
 			}
-		}  // TODO voir pk on est decale sur les droites
+		}
 	}
 
 	public void update(Graphics g) {
@@ -80,27 +86,27 @@ public class Carte extends JPanel {
 
 	public void setVilleSelectionnee(String ville) {
 		Ville villeSelect = this.monde.getVilleParNom(ville);
-		
-		if (villeSelect != null) {		
-			// on met itineraire a null pour n'avoir qu'une seule chose à l'écran. 
-			//(soit la ville recherchee, soit la l'itinéraire)
+
+		if (villeSelect != null) {
+			// on met itineraire a null pour n'avoir qu'une seule chose à
+			// l'écran (soit la ville selectionnee, soit la l'itinéraire)
 			this.itineraire = null;
-			
+
 			this.villeSelectionnee = villeSelect.getCode();
-			repaint();			
-		}		
+			repaint();
+		}
 	}
-	
+
 	public void setItineraire(String ville1, String ville2) {
 		Ville villeSelect1 = this.monde.getVilleParNom(ville1);
 		Ville villeSelect2 = this.monde.getVilleParNom(ville2);
-		
+
 		if (villeSelect1 != null && villeSelect2 != null) {
-			// on met enleve la ville selectionnee pour n'avoir qu'une seule chose à l'écran.
-			//(soit la ville recherchee, soit la l'itinéraire)
+			// on met enleve la ville selectionnee pour n'avoir qu'une seule
+			// chose à l'écran (soit la ville selectionnee, soit la l'itinéraire)
 			this.villeSelectionnee = -1;
-			
-			this.itineraire = new Itineraire(villeSelect1, villeSelect2);			
+
+			this.itineraire = new Itineraire(villeSelect1, villeSelect2);
 			repaint();
 		}
 	}

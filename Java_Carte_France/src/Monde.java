@@ -40,11 +40,12 @@ public class Monde {
 				villeDepart.ajouterVoisine(getVilleParCode(codeArrivee),
 						distance);
 			}
-			
+
 			Ville villeArrivee = getVilleParCode(codeArrivee);
-			
+
 			if (villeArrivee != null) {
-				villeArrivee.ajouterVoisine(getVilleParCode(codeDepart), distance);
+				villeArrivee.ajouterVoisine(getVilleParCode(codeDepart),
+						distance);
 			}
 		}
 	}
@@ -68,7 +69,6 @@ public class Monde {
 				return curVille;
 			}
 		}
-
 		// On n'a rien trouvé, on retourne null
 		return null;
 	}
@@ -83,7 +83,6 @@ public class Monde {
 				return curVille;
 			}
 		}
-
 		// On n'a rien trouvé, on retourne null
 		return null;
 	}
