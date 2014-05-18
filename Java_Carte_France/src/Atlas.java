@@ -14,9 +14,13 @@ import javax.swing.JTextField;
 public class Atlas extends JFrame implements ActionListener{
 	
 	private Carte carte;
-	private JButton button;
-	private JTextField textField;
-	private JLabel label;
+	private JButton buttonVille;
+	private JTextField textFieldVille;
+	private JLabel labelVille;
+	private JLabel labelItineraire;
+	private JTextField textFieldItineraire1;
+	private JTextField textFieldItineraire2;
+	private JButton buttonItineraire;
 
 	public Atlas() {
 
@@ -30,18 +34,34 @@ public class Atlas extends JFrame implements ActionListener{
 		BoxLayout interfaceLayout = new BoxLayout(c, BoxLayout.Y_AXIS);
 		c.setLayout(interfaceLayout);
 
-		label = new JLabel("Rechercher une ville sur la carte");
-		label.setAlignmentX(Component.CENTER_ALIGNMENT);
-		textField = new JTextField();
-		textField.setMaximumSize(new Dimension(100, 50));
-		button = new JButton("OK");
-		button.setAlignmentX(Component.CENTER_ALIGNMENT);
+		labelVille = new JLabel("Rechercher une ville sur la carte");
+		labelVille.setAlignmentX(Component.CENTER_ALIGNMENT);
+		textFieldVille = new JTextField();
+		textFieldVille.setMaximumSize(new Dimension(100, 50));
+		buttonVille = new JButton("OK");
+		buttonVille.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		c.add(label);
-		c.add(textField);
-		c.add(button);
+		c.add(labelVille);
+		c.add(textFieldVille);
+		c.add(buttonVille);
+		
+		buttonVille.addActionListener(this);
+		
+		labelItineraire = new JLabel("Rechercher une ville sur la carte");
+		labelItineraire.setAlignmentX(Component.CENTER_ALIGNMENT);
+		textFieldItineraire1 = new JTextField();
+		textFieldItineraire1.setMaximumSize(new Dimension(100, 50));
+		textFieldItineraire2 = new JTextField();
+		textFieldItineraire2.setMaximumSize(new Dimension(100, 50));
+		buttonItineraire = new JButton("Calculer un itineraire");
+		buttonItineraire.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		c.add(labelItineraire);
+		c.add(textFieldItineraire1);
+		c.add(textFieldItineraire2);
+		c.add(buttonItineraire);
 
-		button.addActionListener(this);
+		buttonItineraire.addActionListener(this);
 
 		// Creation de la fenetre et positionnement des elements
 		BorderLayout windowsLayout = new BorderLayout();
@@ -54,11 +74,20 @@ public class Atlas extends JFrame implements ActionListener{
 		setVisible(true);
 
 	}
-
+	
+	
 	public void actionPerformed(ActionEvent e) {
+		// si l'utilisateur appuie sur un des boutons auxquels on a ajouté un action listener, cette
+		// méthode est appelée
 		
-		String ville = this.textField.getText();
-		
-		this.carte.setVilleSelectionnee(ville);
+		// Pour distinguer le bouton, on utilise la source de e:
+		if (e.getSource() == this.buttonVille) {
+			String ville = this.textFieldVille.getText();			
+			this.carte.setVilleSelectionnee(ville);
+		} else if (e.getSource() == this.buttonItineraire){
+			String v1 = this.textFieldItineraire1.getText();
+			String v2 = this.textFieldItineraire2.getText();
+			this.carte.setItineraire(v1, v2);
+		}
 	}
 }
