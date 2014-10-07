@@ -1,6 +1,9 @@
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 
 public class Monde {
 
@@ -9,44 +12,53 @@ public class Monde {
 	public void charger() {
 
 		// On charge les villes
-		TextFile tf = new TextFile("ville.dat");
-		System.out.println(tf.getSize());
-		for (int i = 0; i < tf.getSize(); i++) {
-			String[] tab = tf.getLine(i).split(";");
+		FileInputStream fisVille;
+		 Scanner scanner;
+		try {
+			fisVille = new FileInputStream("ville.dat");
+			scanner = new Scanner(fisVille);
+			
+			while(scanner.hasNextLine()) {			
+		
+				String[] tab = scanner.nextLine().split(";");
 
-			System.out.println(tab[0]);
+				System.out.println(tab[0]);
 
-			String nom = tab[0];
-			int code = Integer.parseInt(tab[1]);
-			int x = Integer.parseInt(tab[2]);
-			int y = Integer.parseInt(tab[3]);
-			Ville ville = new Ville(nom, code, x, y);
-			villes.add(ville);
-		}
-
-		// On charge les routes
-		TextFile rf = new TextFile("Route.dat");
-		System.out.println("nb de routes : " + rf.getSize());
-		for (int i = 0; i < rf.getSize(); i++) {
-			String[] tab = rf.getLine(i).split(";");
-
-			int codeDepart = Integer.parseInt(tab[0]);
-			int codeArrivee = Integer.parseInt(tab[1]);
-			int distance = Integer.parseInt(tab[2]);
-
-			Ville villeDepart = getVilleParCode(codeDepart);
-
-			if (villeDepart != null) {
-				villeDepart.ajouterVoisine(getVilleParCode(codeArrivee),
-						distance);
+				String nom = tab[0];
+				int code = Integer.parseInt(tab[1]);
+				int x = Integer.parseInt(tab[2]);
+				int y = Integer.parseInt(tab[3]);
+				Ville ville = new Ville(nom, code, x, y);
+				villes.add(ville);
 			}
 
-			Ville villeArrivee = getVilleParCode(codeArrivee);
+			// On charge les routes
+			FileInputStream fisRoute = new FileInputStream("route.dat");
+			scanner = new Scanner(fisRoute);
+			while (scanner.hasNextLine()) {
+				String[] tab = scanner.nextLine().split(";");
 
-			if (villeArrivee != null) {
-				villeArrivee.ajouterVoisine(getVilleParCode(codeDepart),
-						distance);
+				int codeDepart = Integer.parseInt(tab[0]);
+				int codeArrivee = Integer.parseInt(tab[1]);
+				int distance = Integer.parseInt(tab[2]);
+
+				Ville villeDepart = getVilleParCode(codeDepart);
+
+				if (villeDepart != null) {
+					villeDepart.ajouterVoisine(getVilleParCode(codeArrivee),
+							distance);
+				}
+
+				Ville villeArrivee = getVilleParCode(codeArrivee);
+
+				if (villeArrivee != null) {
+					villeArrivee.ajouterVoisine(getVilleParCode(codeDepart),
+							distance);
+				}
 			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -60,7 +72,7 @@ public class Monde {
 
 	public Ville getVilleParNom(String nomVille) {
 
-		// Un itérateur qui va parcourir toutes les villes
+		// Un itï¿½rateur qui va parcourir toutes les villes
 		Iterator<Ville> iterator = villes.iterator();
 
 		while (iterator.hasNext()) {
@@ -69,12 +81,12 @@ public class Monde {
 				return curVille;
 			}
 		}
-		// On n'a rien trouvé, on retourne null
+		// On n'a rien trouvï¿½, on retourne null
 		return null;
 	}
 
 	public Ville getVilleParCode(int code) {
-		// Un itérateur qui va parcourir toutes les villes
+		// Un itï¿½rateur qui va parcourir toutes les villes
 		Iterator<Ville> iterator = villes.iterator();
 
 		while (iterator.hasNext()) {
@@ -83,7 +95,8 @@ public class Monde {
 				return curVille;
 			}
 		}
-		// On n'a rien trouvé, on retourne null
+		// On n'a rien trouvï¿½, on retourne null
 		return null;
 	}
+
 }

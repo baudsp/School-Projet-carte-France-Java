@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.List;
-
 import javax.swing.JPanel;
 
 public class Carte extends JPanel {
@@ -14,11 +13,10 @@ public class Carte extends JPanel {
 
 	public Carte() {
 		setBounds(0, 0, 800, 800);
-
 		monde = new Monde();
 		monde.charger();
 		this.villes = monde.getVilles();
-
+		
 		setVisible(true);
 	}
 
@@ -34,7 +32,6 @@ public class Carte extends JPanel {
 
 			// Placement de la ville sur la carte
 			g.fillRect(3 * x / 4, 3 * y / 4, 4, 4);
-
 			g.setColor(Color.ORANGE);
 
 			// On dessine les routes
@@ -103,7 +100,8 @@ public class Carte extends JPanel {
 
 		if (villeSelect1 != null && villeSelect2 != null) {
 			// on met enleve la ville selectionnee pour n'avoir qu'une seule
-			// chose à l'écran (soit la ville selectionnee, soit la l'itinéraire)
+			// chose à l'écran (soit la ville selectionnee, soit la
+			// l'itinéraire)
 			this.villeSelectionnee = -1;
 
 			this.itineraire = new Itineraire(villeSelect1, villeSelect2);

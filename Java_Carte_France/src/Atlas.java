@@ -45,13 +45,13 @@ public class Atlas extends JFrame implements ActionListener {
 
 		buttonVille.addActionListener(this);
 
-		labelItineraire = new JLabel("Rechercher une ville sur la carte");
+		labelItineraire = new JLabel("Calculer un itineraire");
 		labelItineraire.setAlignmentX(Component.CENTER_ALIGNMENT);
 		textFieldItineraire1 = new JTextField();
 		textFieldItineraire1.setMaximumSize(new Dimension(100, 50));
 		textFieldItineraire2 = new JTextField();
 		textFieldItineraire2.setMaximumSize(new Dimension(100, 50));
-		buttonItineraire = new JButton("Calculer un itineraire");
+		buttonItineraire = new JButton("OK");
 		buttonItineraire.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		c.add(labelItineraire);
@@ -84,6 +84,8 @@ public class Atlas extends JFrame implements ActionListener {
 			String v1 = this.textFieldItineraire1.getText();
 			String v2 = this.textFieldItineraire2.getText();
 			this.carte.setItineraire(v1, v2);
+		} else {
+			System.out.println("Ville");
 		}
 	}
 }
