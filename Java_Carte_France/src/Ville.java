@@ -69,7 +69,7 @@ public class Ville {
 		return this.voisines;
 	}
 
-	public int distance(Ville v) {
+	public int distanceGeometrique(Ville v) {
 		return (int) Math.sqrt(Math.pow((v.x - this.x), 2)
 				+ Math.pow((v.y - this.y), 2));
 	}
@@ -85,9 +85,9 @@ public class Ville {
 		Ville plusProcheVoisine = null;
 
 		for (int i = 0; i < nbVoisines; i++) {
-			if (distAvecVoisine > voisines[i].distance(v)) {
+			if (distAvecVoisine > voisines[i].distanceGeometrique(v)) {
 				plusProcheVoisine = voisines[i];
-				distAvecVoisine = voisines[i].distance(v);
+				distAvecVoisine = voisines[i].distanceGeometrique(v);
 			}
 		}
 		return plusProcheVoisine;

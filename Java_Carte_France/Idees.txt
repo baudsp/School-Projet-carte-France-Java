@@ -1,0 +1,8 @@
+Afficher les caractéristique du trajet
+Pattern observer (ou abservable de java)
+
+Permettre une selection approximative des villes (ignorer accents, espaces, casse)
+Faire une selection des villes en cliquant dessus
+Mettre des autoroutes
+Meilleurs algorithme de trajet
+Utiliser une base de données

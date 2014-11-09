@@ -2,20 +2,29 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.List;
+
 import javax.swing.JPanel;
 
+/**
+ * Classe responsable de l'affichage graphique de la carte
+ * 
+ * @author Baudouin
+ *
+ */
 public class Carte extends JPanel {
 
+	private static final long serialVersionUID = 1L;
 	private List<Ville> villes;
-	private int villeSelectionnee = -1;
 	private Monde monde;
-	private Itineraire itineraire = null;
+	private InfoCarte infoCarte;
 
 	public Carte() {
-		setBounds(0, 0, 800, 800);
+
 		monde = new Monde();
 		monde.charger();
 		this.villes = monde.getVilles();
+		
+		infoCarte = new InfoCarte(monde);		
 		
 		setVisible(true);
 	}
@@ -46,8 +55,8 @@ public class Carte extends JPanel {
 			// Si la ville est celle qui est sélectionnée ou est sur
 			// l'itineraire, on change la police
 			// en rouge, gras et taille 18
-			if (ville.getCode() == this.villeSelectionnee
-					|| (this.itineraire != null && this.itineraire
+			if (ville.getCode() == infoCarte.villeSelectionnee
+					|| (infoCarte.itineraire != null && infoCarte.itineraire
 							.checkVille(ville))) {
 				g.setFont(new Font("TimesRoman", Font.BOLD, 18));
 				g.setColor(Color.RED);
@@ -61,10 +70,10 @@ public class Carte extends JPanel {
 
 		// On va repeindre les routes de l'itinéraire en rouge (par-dessus celle
 		// en orange)
-		if (this.itineraire != null) {
+		if (infoCarte.itineraire != null) {
 			g.setColor(Color.BLUE);
 
-			List<Ville> villesItineraire = this.itineraire
+			List<Ville> villesItineraire = infoCarte.itineraire
 					.getVillesItineraire();
 
 			for (int i = 0; i < villesItineraire.size() - 1; i++) {
@@ -80,20 +89,28 @@ public class Carte extends JPanel {
 		super.update(g);
 		paintComponent(g);
 	}
-
+	
+	/**
+	 * On affiche la ville demandée, si elle existe
+	 * @param ville
+	 */
 	public void setVilleSelectionnee(String ville) {
 		Ville villeSelect = this.monde.getVilleParNom(ville);
 
 		if (villeSelect != null) {
 			// on met itineraire a null pour n'avoir qu'une seule chose à
 			// l'écran (soit la ville selectionnee, soit la l'itinéraire)
-			this.itineraire = null;
-
-			this.villeSelectionnee = villeSelect.getCode();
+			infoCarte.setVilleSelectionnee(villeSelect);
 			repaint();
 		}
 	}
 
+	/**
+	 * On essaie de creer un itineraire et si ça marche, on appele repaint 
+	 * pour qu'il s'affiche
+	 * @param ville1
+	 * @param ville2
+	 */
 	public void setItineraire(String ville1, String ville2) {
 		Ville villeSelect1 = this.monde.getVilleParNom(ville1);
 		Ville villeSelect2 = this.monde.getVilleParNom(ville2);
@@ -102,10 +119,20 @@ public class Carte extends JPanel {
 			// on met enleve la ville selectionnee pour n'avoir qu'une seule
 			// chose à l'écran (soit la ville selectionnee, soit la
 			// l'itinéraire)
-			this.villeSelectionnee = -1;
-
-			this.itineraire = new Itineraire(villeSelect1, villeSelect2);
+			infoCarte.setItineraire(villeSelect1, villeSelect2);
 			repaint();
 		}
+	}
+
+	/**
+	 * Retourne des infos sur la ville ou l'itineraire affiche sur la carte
+	 * à ce moment
+	 */
+	public String getCarteInfo() {
+		return infoCarte.toString();
+	}
+
+	public void setObserverOfInfo(CommandPanel commandPanel) {
+		infoCarte.addObserver(commandPanel);		
 	}
 }
