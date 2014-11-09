@@ -6,6 +6,7 @@ public class Itineraire {
 	private List<Ville> villesItineraire = new ArrayList<Ville>();
 	private int nbrVilles = 0;
 	private int distanceGeometrique = 0;
+	private int distanceRoute = 0;
 
 	public Itineraire(Ville depart, Ville arrivee) {
 
@@ -20,6 +21,7 @@ public class Itineraire {
 			Ville temp = curVille.getPlusProcheVoisines(arrivee);
 			
 			distanceGeometrique += curVille.distanceGeometrique(temp);
+			distanceRoute += curVille.distanceRoute(temp);
 			
 			curVille = temp;
 
@@ -49,5 +51,9 @@ public class Itineraire {
 	 */
 	public int getDistanceGeometrique() {
 		return distanceGeometrique;
+	}
+
+	public int getDistanceRoute() {
+		return distanceRoute;
 	}
 }

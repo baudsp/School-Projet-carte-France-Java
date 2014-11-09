@@ -44,10 +44,11 @@ public class Carte extends JPanel {
 			g.setColor(Color.ORANGE);
 
 			// On dessine les routes
-			Ville[] voisines = ville.getVoisines();
-			for (int i = 0; i < 10 && voisines[i] != null; i++) {
-				g.drawLine(3 * x / 4, 3 * y / 4, voisines[i].getX() * 3 / 4,
-						voisines[i].getY() * 3 / 4);
+			
+			List<Ville>voisines = ville.getVoisines();
+			for (int i = 0; i < voisines.size(); i++) {
+				g.drawLine(3 * x / 4, 3 * y / 4, voisines.get(i).getX() * 3 / 4,
+						voisines.get(i).getY() * 3 / 4);
 				// Avec cette méthode, toutes les routes sont dessinées deux
 				// fois, une fois la route de A à B, puis la route de B à A
 			}
@@ -55,8 +56,8 @@ public class Carte extends JPanel {
 			// Si la ville est celle qui est sélectionnée ou est sur
 			// l'itineraire, on change la police
 			// en rouge, gras et taille 18
-			if (ville.getCode() == infoCarte.villeSelectionnee
-					|| (infoCarte.itineraire != null && infoCarte.itineraire
+			if (ville.getCode() == infoCarte.getVilleSelectionnee()
+					|| (infoCarte.getItineraire() != null && infoCarte.getItineraire()
 							.checkVille(ville))) {
 				g.setFont(new Font("TimesRoman", Font.BOLD, 18));
 				g.setColor(Color.RED);
@@ -70,10 +71,10 @@ public class Carte extends JPanel {
 
 		// On va repeindre les routes de l'itinéraire en rouge (par-dessus celle
 		// en orange)
-		if (infoCarte.itineraire != null) {
+		if (infoCarte.getItineraire() != null) {
 			g.setColor(Color.BLUE);
 
-			List<Ville> villesItineraire = infoCarte.itineraire
+			List<Ville> villesItineraire = infoCarte.getItineraire()
 					.getVillesItineraire();
 
 			for (int i = 0; i < villesItineraire.size() - 1; i++) {

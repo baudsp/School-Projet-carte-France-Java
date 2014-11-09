@@ -8,13 +8,13 @@ import javax.swing.JFrame;
  * @author Baudouin
  *
  */
-public class Atlas extends JFrame {
+public class FenetrePrincipale extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private Carte carte;
 	private CommandPanel commandPanel;
 
-	public Atlas() {
+	public FenetrePrincipale() {
 		// Creation de la carte de France
 		carte = new Carte();
 

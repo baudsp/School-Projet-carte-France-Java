@@ -1,8 +1,15 @@
+DONE : 
+
 Afficher les caractéristique du trajet
 Pattern observer (ou abservable de java)
 
+###############################
+
+TO DO : 
+
+Affichage d'information sur les villes à partir d'internet
 Permettre une selection approximative des villes (ignorer accents, espaces, casse)
+Meilleurs algorithme de trajet
 Faire une selection des villes en cliquant dessus
 Mettre des autoroutes
-Meilleurs algorithme de trajet
 Utiliser une base de données

@@ -1,6 +1,5 @@
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,10 +9,15 @@ import java.util.Observer;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
+/**
+ * Panneau de commande sur le côté de la fenetre, 
+ * observe l'objet InfoCarte de la carte courante pour 
+ * afficher des informations
+ * @author Baudouin
+ *
+ */
 public class CommandPanel extends Panel implements ActionListener, Observer {
 
 	private static final long serialVersionUID = 1L;
@@ -65,22 +69,12 @@ public class CommandPanel extends Panel implements ActionListener, Observer {
 		this.add(textFieldItineraire2);
 		this.add(buttonItineraire);
 
+		this.add(infoCourantes);
+
 		buttonItineraire.addActionListener(this);
 		
-		this.add(infoCourantes);
 	}
-	
-//	protected void paintComponent(Graphics g) {
-//		super.paintComponents(g);
-//		g.drawString("HAHAHAAH3", 500,500);
-//		this.paint(g);
-//	}
-	
-	@Override
-	public void update(Observable o, Object arg) {
-		majInfo(arg);		
-	}
-	
+		
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// si l'utilisateur appuie sur un des boutons auxquels on a ajouté un
@@ -96,14 +90,10 @@ public class CommandPanel extends Panel implements ActionListener, Observer {
 			this.carte.setItineraire(v1, v2);
 		}
 	}
-	
-	/**
-	 * Mise à jour des infos
-	 * @param arg 
-	 */
-	public void majInfo(Object arg) {
-		infoCourantes = new JLabel((String) arg);
-		
-		System.out.println("maj commandPanel");
+
+	@Override
+	public void update(Observable o, Object arg) {
+		infoCourantes.setText((String) arg); 
 	}
 }
+
