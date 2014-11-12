@@ -1,3 +1,4 @@
+package domaine;
 import java.util.ArrayList;
 import java.util.List;
 

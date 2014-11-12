@@ -1,9 +1,11 @@
+package domaine;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Itineraire {
 
 	private List<Ville> villesItineraire = new ArrayList<Ville>();
+
 	private int nbrVilles = 0;
 	private int distanceGeometrique = 0;
 	private int distanceRoute = 0;

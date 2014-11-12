@@ -1,9 +1,14 @@
+package apparence;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.List;
 
 import javax.swing.JPanel;
+
+import domaine.InfoCarte;
+import domaine.Monde;
+import domaine.Ville;
 
 /**
  * Classe responsable de l'affichage graphique de la carte

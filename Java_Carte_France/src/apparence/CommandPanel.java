@@ -1,3 +1,5 @@
+package apparence;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Panel;
@@ -33,7 +35,7 @@ public class CommandPanel extends Panel implements ActionListener, Observer {
 		
 	public CommandPanel(Carte carte) {
 		this.carte = carte;
-
+		this.setBackground(Color.WHITE);
 		// Creation des objets de cette partie de l'interface
 		BoxLayout interfaceLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
 		this.setLayout(interfaceLayout);
