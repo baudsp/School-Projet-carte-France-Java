@@ -12,10 +12,10 @@ import java.util.Observable;
 public class InfoCarte extends Observable {
 	private int villeSelectionnee = -1;
 	private Itineraire itineraire = null;
-	private Monde monde;
+	private Pays pays;
 
-	public InfoCarte(Monde monde) {
-		this.monde = monde;
+	public InfoCarte(Pays pays) {
+		this.pays = pays;
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class InfoCarte extends Observable {
 			res += "</html>";
 			return res;
 		} else if (villeSelectionnee != -1) {
-			return monde.getVilleParCode(villeSelectionnee).getNom();
+			return pays.getVilleParCode(villeSelectionnee).getNom();
 		} else {
 			return "Rien";
 		}
@@ -55,7 +55,7 @@ public class InfoCarte extends Observable {
 	public void setItineraire(Ville villeSelect1, Ville villeSelect2) {
 		villeSelectionnee = -1;
 		itineraire = new Itineraire(villeSelect1, villeSelect2);
-
+		new ItineraireDijkstra(villeSelect1, villeSelect2, pays);
 		setChanged();
 		notifyObservers(this.toString());
 	}

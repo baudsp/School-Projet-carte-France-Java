@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import domaine.InfoCarte;
-import domaine.Monde;
+import domaine.Pays;
 import domaine.Ville;
 
 /**
@@ -20,16 +20,16 @@ public class Carte extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private List<Ville> villes;
-	private Monde monde;
+	private Pays pays;
 	private InfoCarte infoCarte;
 
 	public Carte() {
 
-		monde = new Monde();
-		monde.charger();
-		this.villes = monde.getVilles();
+		pays = new Pays();
+		pays.charger();
+		this.villes = pays.getVilles();
 		
-		infoCarte = new InfoCarte(monde);		
+		infoCarte = new InfoCarte(pays);		
 		
 		setVisible(true);
 	}
@@ -101,7 +101,7 @@ public class Carte extends JPanel {
 	 * @param ville
 	 */
 	public void setVilleSelectionnee(String ville) {
-		Ville villeSelect = this.monde.getVilleParNom(ville);
+		Ville villeSelect = this.pays.getVilleParNom(ville);
 
 		if (villeSelect != null) {
 			// on met itineraire a null pour n'avoir qu'une seule chose à
@@ -118,8 +118,8 @@ public class Carte extends JPanel {
 	 * @param ville2
 	 */
 	public void setItineraire(String ville1, String ville2) {
-		Ville villeSelect1 = this.monde.getVilleParNom(ville1);
-		Ville villeSelect2 = this.monde.getVilleParNom(ville2);
+		Ville villeSelect1 = this.pays.getVilleParNom(ville1);
+		Ville villeSelect2 = this.pays.getVilleParNom(ville2);
 
 		if (villeSelect1 != null && villeSelect2 != null) {
 			// on met enleve la ville selectionnee pour n'avoir qu'une seule

@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
-public class Monde {
+public class Pays {
 
 	private List<Ville> villes = new ArrayList<Ville>();
 
@@ -16,9 +16,9 @@ public class Monde {
 		FileInputStream fisVille;
 		 Scanner scanner;
 		try {
-			fisVille = new FileInputStream("ville.dat");
+			fisVille = new FileInputStream("villeReduites.dat");
 			scanner = new Scanner(fisVille);
-			
+						
 			while(scanner.hasNextLine()) {			
 		
 				String[] tab = scanner.nextLine().split(";");
@@ -34,7 +34,7 @@ public class Monde {
 			}
 
 			// On charge les routes
-			FileInputStream fisRoute = new FileInputStream("route.dat");
+			FileInputStream fisRoute = new FileInputStream("routeReduites.dat");
 			scanner = new Scanner(fisRoute);
 			while (scanner.hasNextLine()) {
 				String[] tab = scanner.nextLine().split(";");
