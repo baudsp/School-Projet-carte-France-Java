@@ -55,7 +55,7 @@ public class InfoCarte extends Observable {
 	public void setItineraire(Ville villeSelect1, Ville villeSelect2) {
 		villeSelectionnee = -1;
 		itineraire = new Itineraire(villeSelect1, villeSelect2);
-		new ItineraireDijkstra(villeSelect1, villeSelect2, pays);
+		new ItineraireDijkstra(villeSelect1, villeSelect2);
 		setChanged();
 		notifyObservers(this.toString());
 	}

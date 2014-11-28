@@ -1,9 +1,17 @@
 package domaine;
-import apparence.FenetrePrincipale;
 
 public class Test {
 
 	public static void main(String[] args) {
-		new FenetrePrincipale();
+		//new FenetrePrincipale();
+		
+		Pays p = new Pays();
+		
+		p.charger();
+		
+		p.getVilleParNom("Bordeaux");
+		
+		new ItineraireDijkstra(p.getVilleParNom("Bordeaux"), 
+				p.getVilleParNom("Strasbourg"));
 	}
-}
+} 

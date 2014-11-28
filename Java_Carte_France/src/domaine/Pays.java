@@ -23,8 +23,6 @@ public class Pays {
 		
 				String[] tab = scanner.nextLine().split(";");
 
-				System.out.println(tab[0]);
-
 				String nom = tab[0];
 				int code = Integer.parseInt(tab[1]);
 				int x = Integer.parseInt(tab[2]);
