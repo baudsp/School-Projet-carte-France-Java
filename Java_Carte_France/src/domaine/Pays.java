@@ -16,7 +16,7 @@ public class Pays {
 		FileInputStream fisVille;
 		 Scanner scanner;
 		try {
-			fisVille = new FileInputStream("villeReduites.dat");
+			fisVille = new FileInputStream("ville.dat");
 			scanner = new Scanner(fisVille);
 						
 			while(scanner.hasNextLine()) {			
@@ -32,7 +32,7 @@ public class Pays {
 			}
 
 			// On charge les routes
-			FileInputStream fisRoute = new FileInputStream("routeReduites.dat");
+			FileInputStream fisRoute = new FileInputStream("route.dat");
 			scanner = new Scanner(fisRoute);
 			while (scanner.hasNextLine()) {
 				String[] tab = scanner.nextLine().split(";");

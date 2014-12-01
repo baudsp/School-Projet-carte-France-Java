@@ -19,9 +19,11 @@ import java.util.TreeMap;
  */
 public class ItineraireDijkstra {
 
-	private List<Ville> villesItineraire;
+	private List<Ville> villesItineraire = new ArrayList<Ville>();
 	private int nbrVilles = 0;
 	private int distanceRoute = 0;
+	private Ville depart;
+	private Ville arrivee;
 	
 	/**
 	 * Tableau des poids : associe chaque ville à un son poids
@@ -46,6 +48,9 @@ public class ItineraireDijkstra {
 
 	public ItineraireDijkstra(Ville depart, Ville arrivee) {
 		
+		this.arrivee = arrivee;
+		this.depart = depart;
+		
 		poids.put(depart, 0);
 		
 		while (!getVillePoidsFaible().equals(arrivee)) {
@@ -66,9 +71,9 @@ public class ItineraireDijkstra {
 					poidsCurVoisine = -1;
 				}
 				if (!villesParcourues.contains(curVoisine)   //On vérifie qu'on n'est pas encore passé par cette ville
-						&& (poidsCurVoisine > poids.get(curVille) // et que c'est plus intéressant de passer par là
+						&& ((poidsCurVoisine > poids.get(curVille) // et que c'est plus intéressant de passer par là
 								+ curVoisine.distanceRoute(curVille))
-						|| poidsCurVoisine == -1) { // ou qu'on y est jamais passé
+						|| poidsCurVoisine == -1)) { // ou qu'on y est jamais passé
 					
 					poids.put(curVoisine, poids.get(curVille) + curVille.distanceRoute(curVoisine));
 							
@@ -77,13 +82,24 @@ public class ItineraireDijkstra {
 			}
 		}
 		
-		Iterator<Ville> it = predecesseurs.keySet().iterator();
-		while(it.hasNext()) {
-			Ville v = it.next();
-			System.out.println(v + "<=" + predecesseurs.get(v));
-		}
+		createVilleItineraire();
+	}
+
+	private void createVilleItineraire() {
+
+		this.villesItineraire.add(arrivee);
 		
-		//createVilleItineraire();
+		Ville curVille = predecesseurs.get(arrivee);
+		
+		this.villesItineraire.add(0, curVille);
+		
+		// On va utiliser les predecesseur pour creer le trajet de l'arrivee
+		// jusqu'au depart
+		while (!curVille.equals(depart)) {
+			curVille = predecesseurs.get(curVille);
+			this.villesItineraire.add(0, curVille);
+		} 
+		
 	}
 
 	public List<Ville> getVillesItineraire() {
@@ -139,34 +155,5 @@ public class ItineraireDijkstra {
 			}
 		}
 		return villePoidsFaible;
-	}
-
-
-//	private Map<Ville, int[]> creerTableauPoids() {
-//		Map<Ville, int[]> poids = new HashMap<>();
-//
-//		Iterator<Ville> villeIterator = pays.getVilles().iterator();
-//
-//		int[] poidsVille = { -1, -1 };
-//
-//		while (villeIterator.hasNext()) {
-//			Ville curVille = villeIterator.next();
-//			poids.put(curVille, poidsVille);
-//		}
-//
-//		return poids;
-//	}
-//
-//	private Map<Ville, Ville> creerTableauPredecesseurs() {
-//		Map<Ville, Ville> predecesseurs = new HashMap<>();
-//
-//		Iterator<Ville> villeIterator = pays.getVilles().iterator();
-//
-//		while (villeIterator.hasNext()) {
-//			predecesseurs.put(villeIterator.next(), null);
-//		}
-//
-//		return predecesseurs;
-//	}
-	
+	}	
 }
