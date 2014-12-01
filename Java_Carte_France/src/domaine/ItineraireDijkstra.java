@@ -17,11 +17,9 @@ import java.util.TreeMap;
  * @author Baudouin
  * 
  */
-public class ItineraireDijkstra {
+public class ItineraireDijkstra extends InterfaceItineraire {
 
-	private List<Ville> villesItineraire = new ArrayList<Ville>();
-	private int nbrVilles = 0;
-	private int distanceRoute = 0;
+	
 	private Ville depart;
 	private Ville arrivee;
 	
@@ -82,7 +80,11 @@ public class ItineraireDijkstra {
 			}
 		}
 		
+		// A partir des calculs, on trace l'itineraire et on calcule
+		// la distance totale
 		createVilleItineraire();
+		
+		super.distanceRoute = poids.get(arrivee);
 	}
 
 	private void createVilleItineraire() {
@@ -93,27 +95,17 @@ public class ItineraireDijkstra {
 		
 		this.villesItineraire.add(0, curVille);
 		
+		nbrVilles+=2;
+		
 		// On va utiliser les predecesseur pour creer le trajet de l'arrivee
 		// jusqu'au depart
 		while (!curVille.equals(depart)) {
 			curVille = predecesseurs.get(curVille);
 			this.villesItineraire.add(0, curVille);
-		} 
-		
+			super.nbrVilles ++;
+		} 		
 	}
-
-	public List<Ville> getVillesItineraire() {
-		return villesItineraire;
-	}
-
-	public int getNbrVilles() {
-		return nbrVilles;
-	}
-
-	public int getDistanceRoute() {
-		return distanceRoute;
-	}
-
+	
 	/**
 	 * Renvoie la Ville dont le poids est le plus faible et qui n'a jamais été
 	 * parcourue

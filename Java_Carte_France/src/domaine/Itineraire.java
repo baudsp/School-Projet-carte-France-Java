@@ -1,13 +1,8 @@
 package domaine;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Itineraire {
+public class Itineraire extends InterfaceItineraire {
 
-	private List<Ville> villesItineraire = new ArrayList<Ville>();
-	private int nbrVilles = 0;
 	private int distanceGeometrique = 0;
-	private int distanceRoute = 0;
 
 	public Itineraire(Ville depart, Ville arrivee) {
 
@@ -32,29 +27,10 @@ public class Itineraire {
 		}
 	}
 
-	public List<Ville> getVillesItineraire() {
-		return villesItineraire;
-	}
-
-	public int getNbrVilles() {
-		return nbrVilles;
-	}
-
-	/**
-	 * Verifie si la ville fait partie de l'itineraire
-	 */
-	public boolean checkVille(Ville v) {
-		return this.villesItineraire.contains(v);
-	}
-
 	/**
 	 * Renvoie la longueur geometrique de l'itineraire
 	 */
 	public int getDistanceGeometrique() {
 		return distanceGeometrique;
-	}
-
-	public int getDistanceRoute() {
-		return distanceRoute;
 	}
 }
