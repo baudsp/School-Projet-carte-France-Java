@@ -1,4 +1,5 @@
 package apparence;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -14,7 +15,7 @@ import domaine.Ville;
  * Classe responsable de l'affichage graphique de la carte
  * 
  * @author Baudouin
- *
+ * 
  */
 public class Carte extends JPanel {
 
@@ -28,9 +29,9 @@ public class Carte extends JPanel {
 		pays = new Pays();
 		pays.charger();
 		this.villes = pays.getVilles();
-		
-		infoCarte = new InfoCarte(pays);		
-		
+
+		infoCarte = new InfoCarte(pays);
+
 		setVisible(true);
 	}
 
@@ -49,21 +50,24 @@ public class Carte extends JPanel {
 			g.setColor(Color.ORANGE);
 
 			// On dessine les routes
-			
-			List<Ville>voisines = ville.getVoisines();
+
+			List<Ville> voisines = ville.getVoisines();
 			for (int i = 0; i < voisines.size(); i++) {
-				g.drawLine(3 * x / 4, 3 * y / 4, voisines.get(i).getX() * 3 / 4,
+				g.drawLine(3 * x / 4, 3 * y / 4,
+						voisines.get(i).getX() * 3 / 4,
 						voisines.get(i).getY() * 3 / 4);
 				// Avec cette méthode, toutes les routes sont dessinées deux
 				// fois, une fois la route de A à B, puis la route de B à A
 			}
 
 			// Si la ville est celle qui est sélectionnée ou est sur
-			// l'itineraire, on change la police
+			// un des itineraire, on change la police
 			// en rouge, gras et taille 18
 			if (ville.getCode() == infoCarte.getVilleSelectionnee()
-					|| (infoCarte.getItineraire() != null && infoCarte.getItineraire()
-							.checkVille(ville))) {
+					|| ((infoCarte.getItineraire() != null && infoCarte
+							.getItineraire().checkVille(ville)) || (infoCarte
+							.getItDijkstra() != null && infoCarte
+							.getItDijkstra().checkVille(ville)))) {
 				g.setFont(new Font("TimesRoman", Font.BOLD, 18));
 				g.setColor(Color.RED);
 				g.drawString(ville.getNom(), 3 * x / 4, 3 * y / 4);
@@ -74,12 +78,27 @@ public class Carte extends JPanel {
 			}
 		}
 
-		// On va repeindre les routes de l'itinéraire en rouge (par-dessus celle
+		// On va repeindre les routes de l'itinéraire en bleue (par-dessus celle
 		// en orange)
 		if (infoCarte.getItineraire() != null) {
 			g.setColor(Color.BLUE);
 
 			List<Ville> villesItineraire = infoCarte.getItineraire()
+					.getVillesItineraire();
+
+			for (int i = 0; i < villesItineraire.size() - 1; i++) {
+				Ville v1 = villesItineraire.get(i);
+				Ville v2 = villesItineraire.get(i + 1);
+				g.drawLine(v1.getX() * 3 / 4, v1.getY() * 3 / 4,
+						v2.getX() * 3 / 4, v2.getY() * 3 / 4);
+			}
+		}
+		// On repeind les routes de l'itineraire calcule avec dijkstra
+		// en vert
+		if (infoCarte.getItDijkstra() != null) {
+			g.setColor(Color.GREEN);
+
+			List<Ville> villesItineraire = infoCarte.getItDijkstra()
 					.getVillesItineraire();
 
 			for (int i = 0; i < villesItineraire.size() - 1; i++) {
@@ -95,9 +114,10 @@ public class Carte extends JPanel {
 		super.update(g);
 		paintComponent(g);
 	}
-	
+
 	/**
 	 * On affiche la ville demandée, si elle existe
+	 * 
 	 * @param ville
 	 */
 	public void setVilleSelectionnee(String ville) {
@@ -112,8 +132,9 @@ public class Carte extends JPanel {
 	}
 
 	/**
-	 * On essaie de creer un itineraire et si ça marche, on appele repaint 
-	 * pour qu'il s'affiche
+	 * On essaie de creer un itineraire et si ça marche, on appele repaint pour
+	 * qu'il s'affiche
+	 * 
 	 * @param ville1
 	 * @param ville2
 	 */
@@ -131,14 +152,14 @@ public class Carte extends JPanel {
 	}
 
 	/**
-	 * Retourne des infos sur la ville ou l'itineraire affiche sur la carte
-	 * à ce moment
+	 * Retourne des infos sur la ville ou l'itineraire affiche sur la carte à ce
+	 * moment
 	 */
 	public String getCarteInfo() {
 		return infoCarte.toString();
 	}
 
 	public void setObserverOfInfo(CommandPanel commandPanel) {
-		infoCarte.addObserver(commandPanel);		
+		infoCarte.addObserver(commandPanel);
 	}
 }

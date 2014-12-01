@@ -98,4 +98,8 @@ public class Ville {
 	public String toString() {
 		return this.nom;
 	}
+	
+	public boolean equals(Object v) {
+		return this.code == ((Ville) v).getCode();
+	}
 }

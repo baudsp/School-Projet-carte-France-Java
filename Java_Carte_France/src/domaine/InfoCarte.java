@@ -12,6 +12,7 @@ import java.util.Observable;
 public class InfoCarte extends Observable {
 	private int villeSelectionnee = -1;
 	private Itineraire itineraire = null;
+	private ItineraireDijkstra itDijkstra = null;
 	private Pays pays;
 
 	public InfoCarte(Pays pays) {
@@ -28,14 +29,25 @@ public class InfoCarte extends Observable {
 			res += "<u>" + villesItineraire.get(0).getNom()
 					+ " à "
 					+ villesItineraire.get(villesItineraire.size() - 1)
-							.getNom() + "</u>";
-			res += "<br/>Longueur geometrique du trajet : "
-					+ itineraire.getDistanceGeometrique() + " km";
-			res += "<br/>Longueur par la route du trajet : "
-					+ itineraire.getDistanceRoute() + " km";
+					.getNom() + "</u>";
+			res += "<br/>";
+			res += "<u>Algorithme idiot : </u>";
+			
+			res += "<br/>Longueur du trajet : "
+					+ itineraire.getDistanceRoute() + " km  ";
 			res += "<br/><u>Villes de l'itineraire :</u><br/>";
 			res += listVille();
+			
+			res += "<u>Algorithme de Disjkstra : </u>";
+			res += "<br/>Longueur du trajet : "
+					+ itDijkstra.getDistanceRoute() + " km  ";
+			res += "<br/><u>Villes de l'itineraire :</u><br/>";
+			res += listVilleDijkstra();
+			
 			res += "</html>";
+			
+			
+			
 			return res;
 		} else if (villeSelectionnee != -1) {
 			return pays.getVilleParCode(villeSelectionnee).getNom();
@@ -55,7 +67,7 @@ public class InfoCarte extends Observable {
 	public void setItineraire(Ville villeSelect1, Ville villeSelect2) {
 		villeSelectionnee = -1;
 		itineraire = new Itineraire(villeSelect1, villeSelect2);
-		new ItineraireDijkstra(villeSelect1, villeSelect2, pays);
+		itDijkstra = new ItineraireDijkstra(villeSelect1, villeSelect2);
 		setChanged();
 		notifyObservers(this.toString());
 	}
@@ -78,5 +90,21 @@ public class InfoCarte extends Observable {
 		}
 		
 		return res;
+	}
+	
+	private String listVilleDijkstra(){
+		List<Ville> listVilles = itDijkstra.getVillesItineraire();
+		
+		String res = "";
+		
+		for (int i = 1; i<listVilles.size()-1; i++) {
+			res += listVilles.get(i).toString()+"<br/>";
+		}
+		
+		return res;
+	}
+
+	public ItineraireDijkstra getItDijkstra() {
+		return itDijkstra;
 	}
 }
