@@ -63,9 +63,10 @@ public class Carte extends JPanel {
 			// Si la ville est celle qui est sélectionnée ou est sur
 			// un des itineraire, on change la police
 			// en rouge, gras et taille 18
-			if (ville.getCode() == infoCarte.getVilleSelectionnee()
-					|| ((infoCarte.getItineraire() != null && infoCarte
-							.getItineraire().checkVille(ville)) || (infoCarte
+			if ((infoCarte.getVilleSelectionnee() != null && ville.getCode() == infoCarte
+					.getVilleSelectionnee().getCode())
+					|| ((infoCarte.getItineraireIdiot() != null && infoCarte
+							.getItineraireIdiot().checkVille(ville)) || (infoCarte
 							.getItDijkstra() != null && infoCarte
 							.getItDijkstra().checkVille(ville)))) {
 				g.setFont(new Font("TimesRoman", Font.BOLD, 18));
@@ -80,10 +81,10 @@ public class Carte extends JPanel {
 
 		// On va repeindre les routes de l'itinéraire en bleue (par-dessus celle
 		// en orange)
-		if (infoCarte.getItineraire() != null) {
+		if (infoCarte.getItineraireIdiot() != null) {
 			g.setColor(Color.BLUE);
 
-			List<Ville> villesItineraire = infoCarte.getItineraire()
+			List<Ville> villesItineraire = infoCarte.getItineraireIdiot()
 					.getVillesItineraire();
 
 			for (int i = 0; i < villesItineraire.size() - 1; i++) {

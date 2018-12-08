@@ -71,7 +71,7 @@ public class Pays {
 
 	public Ville getVilleParNom(String nomVille) {
 
-		// Un itï¿½rateur qui va parcourir toutes les villes
+		// Un itérateur qui va parcourir toutes les villes
 		Iterator<Ville> iterator = villes.iterator();
 
 		while (iterator.hasNext()) {
@@ -80,12 +80,12 @@ public class Pays {
 				return curVille;
 			}
 		}
-		// On n'a rien trouvï¿½, on retourne null
+		// On n'a rien trouvé, on retourne null
 		return null;
 	}
 
 	public Ville getVilleParCode(int code) {
-		// Un itï¿½rateur qui va parcourir toutes les villes
+		// Un itérateur qui va parcourir toutes les villes
 		Iterator<Ville> iterator = villes.iterator();
 
 		while (iterator.hasNext()) {
@@ -94,7 +94,7 @@ public class Pays {
 				return curVille;
 			}
 		}
-		// On n'a rien trouvï¿½, on retourne null
+		// On n'a rien trouvé, on retourne null
 		return null;
 	}
 

@@ -13,6 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import domaine.InfoCarte;
+
 /**
  * Panneau de commande sur le côté de la fenetre, 
  * observe l'objet InfoCarte de la carte courante pour 
@@ -95,7 +97,47 @@ public class CommandPanel extends Panel implements ActionListener, Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		infoCourantes.setText((String) arg); 
+		InfoCarte inf = (InfoCarte) o;
+		
+		StringBuilder expr = new StringBuilder();
+		
+		expr.append("<html>");
+		
+/*		
+		if (itineraire != null) {
+		List<Ville> villesItineraire = itineraire.getVillesItineraire();
+		String res = "<html>";
+		res += "<u>" + villesItineraire.get(0).getNom()
+				+ " à "
+				+ villesItineraire.get(villesItineraire.size() - 1)
+				.getNom() + "</u>";
+		res += "<br/>";
+		res += "<u>Algorithme idiot :</u>";
+		
+		res += "<br/>Longueur du trajet : "
+				+ itineraire.getDistanceRoute() + " km  ";
+		res += "<br/><u>Villes de l'itineraire :</u><br/>";
+		res += listVille();
+		
+		res += "<u>Algorithme de Disjkstra :</u>";
+		res += "<br/>Longueur du trajet : "
+				+ itDijkstra.getDistanceRoute() + " km  ";
+		res += "<br/><u>Villes de l'itineraire :</u><br/>";
+		res += listVilleDijkstra();
+		*/			
+		
+		if (inf.getVilleSelectionnee() != null) {
+			expr.append(inf.getVilleSelectionnee().getCode());
+		} else {
+			
+			inf.getItDijkstra();
+			
+			inf.getItineraireIdiot();
+		}
+		
+		expr.append("</html>");
+		
+		infoCourantes.setText(expr.toString()); 
 	}
 }
 

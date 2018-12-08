@@ -1,15 +1,17 @@
 DONE : 
 
 Afficher les caractéristique du trajet
-Pattern observer (ou abservable de java)
+Pattern observer (ou observable de java)
 Meilleurs algorithme de trajet (dijkstra)
 
 ###############################
 
 TO DO : 
 
+Enlever le code html de la classe InfoCarte
 Affichage d'information sur les villes à partir d'internet
-Permettre une selection approximative des villes (ignorer accents, espaces, casse)
+Permettre une selection approximative des villes (ignorer accents, tirrets, espaces, casse)
 Faire une selection des villes en cliquant dessus
 Mettre des autoroutes
 Utiliser une base de données
+Remplacer l'interface par une ligne de commande (itineraire)

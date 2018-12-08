@@ -1,5 +1,4 @@
 package domaine;
-import java.util.List;
 import java.util.Observable;
 
 /**
@@ -19,48 +18,48 @@ public class InfoCarte extends Observable {
 		this.pays = pays;
 	}
 
-	/**
-	 * Retourne des infos sur la ville ou l'itineraire
-	 */
-	public String toString() {
-		if (itineraire != null) {
-			List<Ville> villesItineraire = itineraire.getVillesItineraire();
-			String res = "<html>";
-			res += "<u>" + villesItineraire.get(0).getNom()
-					+ " à "
-					+ villesItineraire.get(villesItineraire.size() - 1)
-					.getNom() + "</u>";
-			res += "<br/>";
-			res += "<u>Algorithme idiot : </u>";
-			
-			res += "<br/>Longueur du trajet : "
-					+ itineraire.getDistanceRoute() + " km  ";
-			res += "<br/><u>Villes de l'itineraire :</u><br/>";
-			res += listVille();
-			
-			res += "<u>Algorithme de Disjkstra : </u>";
-			res += "<br/>Longueur du trajet : "
-					+ itDijkstra.getDistanceRoute() + " km  ";
-			res += "<br/><u>Villes de l'itineraire :</u><br/>";
-			res += listVilleDijkstra();
-			
-			res += "</html>";
-			
-			
-			
-			return res;
-		} else if (villeSelectionnee != -1) {
-			return pays.getVilleParCode(villeSelectionnee).getNom();
-		} else {
-			return "Rien";
-		}
+//	/**
+//	 * Retourne des infos sur la ville ou l'itineraire
+//	 */
+//	public String toString() {
+//		if (itineraire != null) {
+//			List<Ville> villesItineraire = itineraire.getVillesItineraire();
+//			String res = "<html>";
+//			res += "<u>" + villesItineraire.get(0).getNom()
+//					+ " à "
+//					+ villesItineraire.get(villesItineraire.size() - 1)
+//					.getNom() + "</u>";
+//			res += "<br/>";
+//			res += "<u>Algorithme idiot :</u>";
+//			
+//			res += "<br/>Longueur du trajet : "
+//					+ itineraire.getDistanceRoute() + " km  ";
+//			res += "<br/><u>Villes de l'itineraire :</u><br/>";
+//			res += listVille();
+//			
+//			res += "<u>Algorithme de Disjkstra :</u>";
+//			res += "<br/>Longueur du trajet : "
+//					+ itDijkstra.getDistanceRoute() + " km  ";
+//			res += "<br/><u>Villes de l'itineraire :</u><br/>";
+//			res += listVilleDijkstra();
+//			
+//			res += "</html>";
+//			
+//			
+//			
+//			return res;
+//		} else if (villeSelectionnee != -1) {
+//			return pays.getVilleParCode(villeSelectionnee).getNom();
+//		} else {
+//			return "Rien";
+//		}
+//	}
+
+	public Ville getVilleSelectionnee() {
+		return pays.getVilleParCode(villeSelectionnee);
 	}
 
-	public int getVilleSelectionnee() {
-		return villeSelectionnee;
-	}
-
-	public Itineraire getItineraire() {
+	public Itineraire getItineraireIdiot() {
 		return itineraire;
 	}
 
@@ -78,30 +77,6 @@ public class InfoCarte extends Observable {
 
 		setChanged();
 		notifyObservers(this.toString());
-	}
-
-	private String listVille(){
-		List<Ville> listVilles = itineraire.getVillesItineraire();
-		
-		String res = "";
-		
-		for (int i = 1; i<listVilles.size()-1; i++) {
-			res += listVilles.get(i).toString()+"<br/>";
-		}
-		
-		return res;
-	}
-	
-	private String listVilleDijkstra(){
-		List<Ville> listVilles = itDijkstra.getVillesItineraire();
-		
-		String res = "";
-		
-		for (int i = 1; i<listVilles.size()-1; i++) {
-			res += listVilles.get(i).toString()+"<br/>";
-		}
-		
-		return res;
 	}
 
 	public ItineraireDijkstra getItDijkstra() {
